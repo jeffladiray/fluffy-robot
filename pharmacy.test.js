@@ -93,23 +93,29 @@ describe("pharmacy", () => {
     describe("on Magic Pill", () => {
       it("should never change expiresIn or benefit ", () => {
         expect(
-          new Pharmacy([new Drug("Magic Pill", 10, 20)]).updateBenefitValue()
-        ).toEqual([new Drug("Magic Pill", 10, 20)]);
+          new Pharmacy([
+            new Drug(DRUG_NAMES.MagicPill, 10, 20)
+          ]).updateBenefitValue()
+        ).toEqual([new Drug(DRUG_NAMES.MagicPill, 10, 20)]);
       });
     });
 
     describe("on Dafalgan", () => {
       it("should decrease benefit by 2", () => {
         expect(
-          new Pharmacy([new Drug("Dafalgan", 10, 20)]).updateBenefitValue()
-        ).toEqual([new Drug("Dafalgan", 9, 18)]);
+          new Pharmacy([
+            new Drug(DRUG_NAMES.Dafalgan, 10, 20)
+          ]).updateBenefitValue()
+        ).toEqual([new Drug(DRUG_NAMES.Dafalgan, 9, 18)]);
       });
 
       describe("when expiresIn has passed", () => {
         it("should degrade benefit twice as fast", () => {
           expect(
-            new Pharmacy([new Drug("Dafalgan", 0, 4)]).updateBenefitValue()
-          ).toEqual([new Drug("Dafalgan", -1, 0)]);
+            new Pharmacy([
+              new Drug(DRUG_NAMES.Dafalgan, 0, 4)
+            ]).updateBenefitValue()
+          ).toEqual([new Drug(DRUG_NAMES.Dafalgan, -1, 0)]);
         });
       });
     });
