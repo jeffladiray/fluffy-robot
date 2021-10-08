@@ -2,16 +2,19 @@ export const DRUG_NAMES = {
   Doliprane: "Doliprane",
   HerbalTea: "Herbal Tea",
   Fervex: "Fervex",
-  MagicPill: "Magic Pill"
+  MagicPill: "Magic Pill",
+  Dafalgan: "Dafalgan"
 };
 
-const defaultBenefitComputation = function() {
-  if (this.expiresIn > 0) {
-    this.benefit -= 1;
-  } else {
-    this.benefit -= 2;
-  }
-  this.expiresIn -= 1;
+const rateBasedBenefitComputation = rate => {
+  return function() {
+    if (this.expiresIn > 0) {
+      this.benefit -= 1 * rate;
+    } else {
+      this.benefit -= 2 * rate;
+    }
+    this.expiresIn -= 1;
+  };
 };
 
 const herbalTeaBenefitComputation = function() {
@@ -38,12 +41,15 @@ const fervexBenefitComputation = function() {
 };
 
 const noopBenefitComputation = function() {};
+const defaultBenefitComputation = rateBasedBenefitComputation(1);
+const dafalganBenefitComputation = rateBasedBenefitComputation(2);
 
 export const BENEFICE_COMPUTATION_DICTIONNARY = {
   [DRUG_NAMES.Doliprane]: defaultBenefitComputation,
   [DRUG_NAMES.HerbalTea]: herbalTeaBenefitComputation,
   [DRUG_NAMES.Fervex]: fervexBenefitComputation,
   [DRUG_NAMES.MagicPill]: noopBenefitComputation,
+  [DRUG_NAMES.Dafalgan]: dafalganBenefitComputation,
   default: defaultBenefitComputation
 };
 

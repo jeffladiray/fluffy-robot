@@ -97,5 +97,21 @@ describe("pharmacy", () => {
         ).toEqual([new Drug("Magic Pill", 10, 20)]);
       });
     });
+
+    describe("on Dafalgan", () => {
+      it("should decrease benefit by 2", () => {
+        expect(
+          new Pharmacy([new Drug("Dafalgan", 10, 20)]).updateBenefitValue()
+        ).toEqual([new Drug("Dafalgan", 9, 18)]);
+      });
+
+      describe("when expiresIn has passed", () => {
+        it("should degrade benefit twice as fast", () => {
+          expect(
+            new Pharmacy([new Drug("Dafalgan", 0, 4)]).updateBenefitValue()
+          ).toEqual([new Drug("Dafalgan", -1, 0)]);
+        });
+      });
+    });
   });
 });
