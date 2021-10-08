@@ -1,4 +1,4 @@
-import { Drug, Pharmacy } from "./pharmacy";
+import { Drug, Pharmacy, DRUG_NAMES } from "./pharmacy";
 
 describe("pharmacy", () => {
   describe("updateBenefitValue", () => {
@@ -17,8 +17,10 @@ describe("pharmacy", () => {
 
       it("should not get a benefit that is more than 50", () => {
         expect(
-          new Pharmacy([new Drug("Herbal Tea", 0, 50)]).updateBenefitValue()
-        ).toEqual([new Drug("Herbal Tea", -1, 50)]);
+          new Pharmacy([
+            new Drug(DRUG_NAMES.HerbalTea, 0, 50)
+          ]).updateBenefitValue()
+        ).toEqual([new Drug(DRUG_NAMES.HerbalTea, -1, 50)]);
       });
 
       it("should decrease both benefit and expiresIn", () => {
@@ -39,15 +41,19 @@ describe("pharmacy", () => {
     describe("on Herbal Tea", () => {
       it("should increase benefit by 1", () => {
         expect(
-          new Pharmacy([new Drug("Herbal Tea", 1, 20)]).updateBenefitValue()
-        ).toEqual([new Drug("Herbal Tea", 0, 21)]);
+          new Pharmacy([
+            new Drug(DRUG_NAMES.HerbalTea, 1, 20)
+          ]).updateBenefitValue()
+        ).toEqual([new Drug(DRUG_NAMES.HerbalTea, 0, 21)]);
       });
 
       describe("when expiresIn has passed", () => {
         it("should increase benefit by 2", () => {
           expect(
-            new Pharmacy([new Drug("Herbal Tea", -1, 4)]).updateBenefitValue()
-          ).toEqual([new Drug("Herbal Tea", -2, 6)]);
+            new Pharmacy([
+              new Drug(DRUG_NAMES.HerbalTea, -1, 4)
+            ]).updateBenefitValue()
+          ).toEqual([new Drug(DRUG_NAMES.HerbalTea, -2, 6)]);
         });
       });
     });
@@ -56,24 +62,30 @@ describe("pharmacy", () => {
       describe("when expiresIn is less than 10 days but more than 5 days", () => {
         it("should increase benefit by 2 ", () => {
           expect(
-            new Pharmacy([new Drug("Fervex", 7, 10)]).updateBenefitValue()
-          ).toEqual([new Drug("Fervex", 6, 12)]);
+            new Pharmacy([
+              new Drug(DRUG_NAMES.Fervex, 7, 10)
+            ]).updateBenefitValue()
+          ).toEqual([new Drug(DRUG_NAMES.Fervex, 6, 12)]);
         });
       });
 
       describe("when expiresIn is less than 5 days", () => {
         it("should increase benefit by 3", () => {
           expect(
-            new Pharmacy([new Drug("Fervex", 2, 10)]).updateBenefitValue()
-          ).toEqual([new Drug("Fervex", 1, 13)]);
+            new Pharmacy([
+              new Drug(DRUG_NAMES.Fervex, 2, 10)
+            ]).updateBenefitValue()
+          ).toEqual([new Drug(DRUG_NAMES.Fervex, 1, 13)]);
         });
       });
 
       describe("when expiresIn has passed", () => {
         it("should set benefit to 0", () => {
           expect(
-            new Pharmacy([new Drug("Fervex", 0, 50)]).updateBenefitValue()
-          ).toEqual([new Drug("Fervex", -1, 0)]);
+            new Pharmacy([
+              new Drug(DRUG_NAMES.Fervex, 0, 50)
+            ]).updateBenefitValue()
+          ).toEqual([new Drug(DRUG_NAMES.Fervex, -1, 0)]);
         });
       });
     });
