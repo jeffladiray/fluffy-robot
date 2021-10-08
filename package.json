@@ -12,6 +12,7 @@
   "scripts": {
     "lint": "eslint .",
     "test": "jest",
+    "test:coverage": "jest --coverage --coverageReporters=html && open coverage/index.html",
     "start": "babel-node index.js"
   },
   "devDependencies": {
